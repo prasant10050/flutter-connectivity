@@ -1,0 +1,3 @@
+dependency_overrides:
+  ac_connectivity: 
+    path: ../

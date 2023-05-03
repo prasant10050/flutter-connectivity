@@ -1,29 +1,23 @@
-name: connectivity_plus_extended
-publish_to: 'none'
-version: 1.0.0
-repository: https://github.com/anthochamp/flutter-connectivity-plus-extended
+name: ac_connectivity
+description: Stateful connectivity_plus extended with Internet connectivity
+version: 0.1.0
+repository: https://github.com/anthochamp/flutter-connectivity
 
 environment:
   sdk: '>=2.19.5 <3.0.0'
 
 dependencies:
-  anthochamp_dart_essentials: 
-    git: git@github.com:anthochamp/dart-essentials.git
+  ac_dart_essentials: ^0.1.0
+  ac_inet_connectivity_checker: ^0.1.2
+  ac_flutter_essentials: ^0.1.0
   async: ^2.10.0
   connectivity_plus: ^3.0.5
-  inet_connectivity_checker: 
-    git: git@github.com:anthochamp/dart-inet-connectivity-checker.git
   flutter: 
     sdk: flutter
-  flutter_essentials: 
-    git: git@github.com:anthochamp/flutter-essentials.git
 
 dev_dependencies:
-  anthochamp_lints:
-    git: git@github.com:anthochamp/dart-lints.git
+  ac_lints: ^0.1.0
   build_runner: ^2.3.3
-  dart_code_metrics: ^5.7.2
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
-  lints: ^2.0.1
