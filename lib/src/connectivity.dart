@@ -13,7 +13,7 @@ import 'package:ac_inet_connectivity_checker/ac_inet_connectivity_checker.dart';
 import 'package:async/async.dart';
 import 'package:connectivity_plus/connectivity_plus.dart' as connectivity_plus;
 
-import 'package:ac_connectivity/src/typedefs.dart';
+import 'typedefs.dart';
 import 'inet_connectivity_state.dart';
 
 class Connectivity extends Stream<InetConnectivityState> {

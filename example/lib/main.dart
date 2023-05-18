@@ -4,7 +4,7 @@
 
 import 'dart:async';
 
-import 'package:ac_connectivity/ac_connectivity.dart';
+import 'package:ac_connectivity/flutter_internet_connectivity.dart';
 import 'package:flutter/material.dart';
 
 void main() {
