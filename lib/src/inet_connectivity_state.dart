@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-enum InetConnectivityState {
+enum InternetConnectivityState {
   /// Disconnected from Internet (same as [ConnectivityResult.none])
   disconnected,
 

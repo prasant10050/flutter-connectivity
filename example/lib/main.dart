@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   ConnectivityPlusState? _lastConnectivityPlusState;
-  InetConnectivityState? _lastInetConnectivityState;
+  InternetConnectivityState? _lastInetConnectivityState;
   StreamSubscription? _inetConnectivityStreamSubscription;
   StreamSubscription? _connectivityPlusStreamSubscription;
 

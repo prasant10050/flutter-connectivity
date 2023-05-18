@@ -16,7 +16,7 @@ import 'package:connectivity_plus/connectivity_plus.dart' as connectivity_plus;
 import 'typedefs.dart';
 import 'inet_connectivity_state.dart';
 
-class Connectivity extends Stream<InetConnectivityState> {
+class Connectivity extends Stream<InternetConnectivityState> {
   static final defaultInetEndpoints = List.generate(
       min(_randomIpV4Endpoints.length, _randomIpV6Endpoints.length) * 2,
       (index) => index % 2 == 0
@@ -54,10 +54,10 @@ class Connectivity extends Stream<InetConnectivityState> {
   final _connectivityPlusStreamController =
       StreamController<ConnectivityPlusState>.broadcast();
   final _inetConnectivityStreamController =
-      StreamController<InetConnectivityState>.broadcast();
+      StreamController<InternetConnectivityState>.broadcast();
   CancelableTimer? _backgroundConnectivityChecker;
   ConnectivityPlusState? _lastConnectivityPlusState;
-  InetConnectivityState? _lastInetConnectivityState;
+  InternetConnectivityState? _lastInetConnectivityState;
   CancelableOperation? _updateStatusOperation;
 
   /// List of Internet endpoints to use for Internet checks
@@ -91,7 +91,7 @@ class Connectivity extends Stream<InetConnectivityState> {
   ConnectivityPlusState? get lastConnectivityPlusState =>
       _lastConnectivityPlusState;
 
-  InetConnectivityState? get lastInetConnectivityState =>
+  InternetConnectivityState? get lastInetConnectivityState =>
       _lastInetConnectivityState;
 
   /// equivalent to connectivity_plus's `Connectivity.onConnectivityChanged`
@@ -116,11 +116,11 @@ class Connectivity extends Stream<InetConnectivityState> {
   ///
   /// NB. For Flutter on the Web, it won't make a network, it will deduce
   /// the state based on a fresh connectivity_plus value.
-  CancelableOperation<InetConnectivityState> checkInetConnectivityState({
+  CancelableOperation<InternetConnectivityState> checkInetConnectivityState({
     Duration? timeout,
   }) {
     if (kIsWeb) {
-      final completer = CancelableCompleter<InetConnectivityState>();
+      final completer = CancelableCompleter<InternetConnectivityState>();
 
       completer.complete(connectivity_plus.Connectivity()
           .checkConnectivity()
@@ -137,9 +137,9 @@ class Connectivity extends Stream<InetConnectivityState> {
     );
 
     final operation = checker.cancelableOperation
-        .thenOperation<InetConnectivityState>((success, completer) {
+        .thenOperation<InternetConnectivityState>((success, completer) {
       if (success) {
-        completer.complete(InetConnectivityState.internet);
+        completer.complete(InternetConnectivityState.internet);
       } else {
         completer.complete(connectivity_plus.Connectivity()
             .checkConnectivity()
@@ -172,8 +172,8 @@ class Connectivity extends Stream<InetConnectivityState> {
   }
 
   @override
-  StreamSubscription<InetConnectivityState> listen(
-    void Function(InetConnectivityState state)? onData, {
+  StreamSubscription<InternetConnectivityState> listen(
+    void Function(InternetConnectivityState state)? onData, {
     Function? onError,
     void Function()? onDone,
     bool? cancelOnError,
@@ -181,16 +181,16 @@ class Connectivity extends Stream<InetConnectivityState> {
       _inetConnectivityStreamController.stream.listen(onData,
           onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
-  static InetConnectivityState
+  static InternetConnectivityState
       _composeInetConnectivityStateByConnectivityPlusState(
     ConnectivityPlusState state,
   ) {
     if (state == ConnectivityPlusState.none) {
-      return InetConnectivityState.disconnected;
+      return InternetConnectivityState.disconnected;
     } else {
       return kIsWeb
-          ? InetConnectivityState.internet
-          : InetConnectivityState.connected;
+          ? InternetConnectivityState.internet
+          : InternetConnectivityState.connected;
     }
   }
 
@@ -200,7 +200,7 @@ class Connectivity extends Stream<InetConnectivityState> {
       (_) => checkInetConnectivityState(
         timeout: backgroundCheckTimeout,
       ).then((state) {
-        if (state != InetConnectivityState.connected) {
+        if (state != InternetConnectivityState.connected) {
           _backgroundConnectivityChecker?.cancel();
           _backgroundConnectivityChecker = null;
         }
@@ -223,7 +223,7 @@ class Connectivity extends Stream<InetConnectivityState> {
         _composeInetConnectivityStateByConnectivityPlusState(state));
   }
 
-  void _handleInetConnectivityEvent(InetConnectivityState state) {
+  void _handleInetConnectivityEvent(InternetConnectivityState state) {
     if (_lastInetConnectivityState == null ||
         _lastInetConnectivityState != state) {
       _lastInetConnectivityState = state;
@@ -231,7 +231,7 @@ class Connectivity extends Stream<InetConnectivityState> {
       _inetConnectivityStreamController.add(state);
     }
 
-    if (state == InetConnectivityState.connected) {
+    if (state == InternetConnectivityState.connected) {
       _startBackgroundConnectivityChecker();
     }
   }
